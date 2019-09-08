@@ -20,13 +20,14 @@ modDir = sys.argv[1]
 arcVersion = sys.argv[2]
 outputBase = os.path.join("output", os.path.basename(modDir))
 
-with open("Offsets" + arcVersion + ".txt", "r") as offsetsFile:
+with open("Offsets " + arcVersion + ".txt", "r") as offsetsFile:
     for root, dirs, files in os.walk(modDir, False):
         offsetsFile.seek(0)
+        next(offsetsFile)  # skip metadata line
         for line in offsetsFile:
             fileInfo = line.split(",")
-            offset = fileInfo[1]
             arcPath = fileInfo[0]
+            offset = fileInfo[1]
             for fileName in files:
                 if offset in fileName:
                     filePath = os.path.normpath(os.path.join(root, fileName))
