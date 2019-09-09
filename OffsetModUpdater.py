@@ -38,3 +38,4 @@ with open("Offsets " + arcVersion + ".txt", "r") as offsetsFile:
                     # if the file can't be decompressed, copy instead
                     except zstd.ZstdError:
                         copyfile(filePath, outPath)
+                    files.remove(fileName)
