@@ -2,6 +2,7 @@ import os, csv, sys
 from shutil import copyfile
 import zstandard as zstd
 
+hexChars = "1234567890ABCDEFabcdef"
 # barrowed from https://github.com/Birdwards/SmashPad
 def decomp(input_name, output_name):
     o = open(output_name, 'w+b')
@@ -29,7 +30,8 @@ with open("Offsets " + arcVersion + ".txt", "r") as offsetsFile:
             arcPath = fileInfo[0]
             offset = fileInfo[1]
             for fileName in files:
-                if offset in fileName:
+                offsetPos = fileName.find(offset)
+                if offsetPos != -1 and not (fileName[offsetPos + len(offset) + 1] in hexChars and (offsetPos == 0 or fileName[offsetPos - 1] in hexChars)):
                     filePath = os.path.normpath(os.path.join(root, fileName))
                     outPath = os.path.normpath(os.path.join(outputBase, arcPath))
                     os.makedirs(os.path.dirname(outPath), 0o777, True)
