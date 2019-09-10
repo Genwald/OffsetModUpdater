@@ -31,7 +31,7 @@ with open("Offsets " + arcVersion + ".txt", "r") as offsetsFile:
             offset = fileInfo[1]
             for fileName in files:
                 offsetPos = fileName.find(offset)
-                if offsetPos != -1 and not (fileName[offsetPos + len(offset) + 1] in hexChars and (offsetPos == 0 or fileName[offsetPos - 1] in hexChars)):
+                if offsetPos != -1 and ((offsetPos + len(offset) <= len(fileName) or fileName[offsetPos + len(offset)] not in hexChars) and (offsetPos == 0 or fileName[offsetPos - 1] not in hexChars)):
                     filePath = os.path.normpath(os.path.join(root, fileName))
                     outPath = os.path.normpath(os.path.join(outputBase, arcPath))
                     os.makedirs(os.path.dirname(outPath), 0o777, True)
