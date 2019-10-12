@@ -3,7 +3,8 @@ from shutil import copyfile
 import zstandard as zstd
 
 hexChars = "1234567890ABCDEFabcdef"
-# barrowed from https://github.com/Birdwards/SmashPad
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+# borrowed from https://github.com/Birdwards/SmashPad
 def decomp(input_name, output_name):
     o = open(output_name, 'w+b')
     i = open(input_name, 'rb').read()
