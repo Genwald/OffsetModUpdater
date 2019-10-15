@@ -3,7 +3,6 @@ from shutil import copyfile
 import zstandard as zstd
 
 hexChars = "1234567890ABCDEFabcdef"
-os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # borrowed from https://github.com/Birdwards/SmashPad
 def decomp(input_name, output_name):
     o = open(output_name, 'w+b')
@@ -22,7 +21,7 @@ modDir = sys.argv[1]
 arcVersion = sys.argv[2]
 outputBase = os.path.join("output", os.path.basename(modDir))
 
-with open("Offsets " + arcVersion + ".txt", "r") as offsetsFile:
+with open(os.path.dirname(os.path.abspath(__file__)) + "\\Offsets " + arcVersion + ".txt", "r") as offsetsFile:
     for root, dirs, files in os.walk(modDir, False):
         offsetsFile.seek(0)
         next(offsetsFile)  # skip metadata line
