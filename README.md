@@ -6,6 +6,6 @@ The arc path format is version independent, so the version you wish to use these
 Arguments: [path to mod folder] [version that these offsets correspond to]
 
 Example command:  
-    <p>`py -3 OffsetModUpdater.py myModFolder 3.1.0`</p>
+    `py -3 OffsetModUpdater.py "C:\path\to\myModFolder" 3.1.0`
 
-Requires the zstandard library, use `pip install zstandard` to install it.
+Requires the zstandard library, use `py -3 -m pip install zstandard` to install it.
