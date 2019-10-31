@@ -9,3 +9,5 @@ Example command:
     `py -3 OffsetModUpdater.py "C:\path\to\myModFolder" 3.1.0`
 
 Requires the zstandard library, use `py -3 -m pip install zstandard` to install it.
+
+If using an OS other than Windows replace `py -3` with `python3` in both of the commands above.
