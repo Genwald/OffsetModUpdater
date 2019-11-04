@@ -11,3 +11,5 @@ Example command:
 Requires the zstandard library, use `py -3 -m pip install zstandard` to install it.
 
 If using an OS other than Windows replace `py -3` with `python3` in both of the commands above.
+
+<a href="https://github.com/Genwald/OffsetModUpdater/archive/master.zip"> <img src="https://archive.org/download/download-button-png/download-button-png.png" alt="Download" width="250"/></a>
