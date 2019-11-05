@@ -15,10 +15,22 @@ def decomp(input_name, output_name):
     print(output_name + "\nsuccessfully decompressed to " + hex(n) + " bytes!")
 
 
+if sys.version_info[0] < 3:
+    print("This script must be run with python 3.")
+    if len(sys.argv) < 2:
+        raw_input("press enter to exit")
+    sys.exit()
 if len(sys.argv) < 2:
-    sys.exit("Please provide a mod directory and arc version as arguments")
-modDir = sys.argv[1]
-arcVersion = sys.argv[2]
+    modDir = input("Input the path to a mod folder (dragging a folder into the window will input its path)\n")
+    modDir = modDir.strip('\"')
+    print(modDir)
+    #sys.exit("Please provide a mod directory and arc version as arguments")
+else:
+    modDir = sys.argv[1]
+if len(sys.argv) < 3:
+    arcVersion = input("what version do these offsets correspond to?\n")
+else:
+    arcVersion = sys.argv[2]
 outputBase = os.path.join("output", os.path.basename(modDir))
 
 with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Offsets " + arcVersion + ".txt"), "r") as offsetsFile:
