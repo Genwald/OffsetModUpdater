@@ -1,6 +1,22 @@
 import os, csv, sys
 from shutil import copyfile
-import zstandard as zstd
+
+if sys.version_info[0] < 3:
+    print("This script must be run with python 3.")
+    if len(sys.argv) < 2:
+        raw_input("press enter to exit")
+    sys.exit()
+
+try:
+    import zstandard as zstd
+except ImportError:
+    answer = input("zstandard is required to run this script.\nTry to install it? (Y/N) ").lower()
+    if(answer == "y" or  answer == "yes"):
+            # This is kinda gross, but it might help the illiterate
+            os.system('py -3 -m pip install zstandard')
+            import zstandard as zstd
+    else:
+        sys.exit()
 
 hexChars = "1234567890ABCDEFabcdef"
 # borrowed from https://github.com/Birdwards/SmashPad
@@ -14,12 +30,6 @@ def decomp(input_name, output_name):
     o.close()
     print(output_name + "\nsuccessfully decompressed to " + hex(n) + " bytes!")
 
-
-if sys.version_info[0] < 3:
-    print("This script must be run with python 3.")
-    if len(sys.argv) < 2:
-        raw_input("press enter to exit")
-    sys.exit()
 if len(sys.argv) < 2:
     modDir = input("Input the path to a mod folder (dragging a folder into the window will input its path)\n")
     modDir = modDir.strip('\"')
