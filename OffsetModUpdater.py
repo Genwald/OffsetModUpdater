@@ -64,3 +64,5 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Offsets " + 
                     except zstd.ZstdError:
                         copyfile(filePath, outPath)
                     files.remove(fileName)
+if len(sys.argv) < 2:
+    input("press enter to exit")
