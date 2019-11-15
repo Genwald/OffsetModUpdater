@@ -13,7 +13,8 @@ except ImportError:
     answer = input("zstandard is required to run this script.\nTry to install it? (Y/N) ").lower()
     if(answer == "y" or  answer == "yes"):
             # This is kinda gross, but it might help the illiterate
-            os.system('py -3 -m pip install zstandard')
+            os.system('py -' + str(sys.version_info[0]) + ' -m pip install zstandard')
+            os.system('python' + str(sys.version_info[0]) + ' -m pip install zstandard')
             import zstandard as zstd
     else:
         sys.exit()
