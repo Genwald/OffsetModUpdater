@@ -29,7 +29,7 @@ def decomp(input_name, output_name):
         o.write(chunk)
     n = o.tell()
     o.close()
-    print(output_name + "\nsuccessfully decompressed to " + hex(n) + " bytes!")
+    print("Output file to: \"" + os.path.abspath(output_name) + "\"")
 
 if len(sys.argv) < 2:
     modDir = input("Input the path to a mod folder (dragging a folder into the window will input its path)\n")
