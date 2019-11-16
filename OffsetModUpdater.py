@@ -29,7 +29,6 @@ def decomp(input_name, output_name):
         o.write(chunk)
     n = o.tell()
     o.close()
-    print("Output file to: \"" + os.path.abspath(output_name) + "\"")
 
 if len(sys.argv) < 2:
     modDir = input("Input the path to a mod folder (dragging a folder into the window will input its path)\n")
@@ -62,6 +61,7 @@ with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Offsets " + 
                     # if the file can't be decompressed, copy instead
                     except zstd.ZstdError:
                         copyfile(filePath, outPath)
+                    print("Output file to: \"" + os.path.abspath(outPath) + "\"")
                     files.remove(fileName)
 if len(sys.argv) < 2:
     input("press enter to exit")
