@@ -34,7 +34,6 @@ def decomp(input_name, output_name):
 if len(sys.argv) < 2:
     modDir = input("Input the path to a mod folder (dragging a folder into the window will input its path)\n")
     modDir = modDir.strip('\"')
-    print(modDir)
     #sys.exit("Please provide a mod directory and arc version as arguments")
 else:
     modDir = sys.argv[1]
