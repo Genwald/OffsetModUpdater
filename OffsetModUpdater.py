@@ -54,26 +54,29 @@ else:
     arcVersion = sys.argv[2]
 outputBase = os.path.join("output", os.path.basename(modDir))
 
-with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Offsets " + arcVersion + ".txt"), "r") as offsetsFile:
-    for root, dirs, files in os.walk(modDir, False):
-        offsetsFile.seek(0)
-        next(offsetsFile)  # skip metadata line
-        for line in offsetsFile:
-            fileInfo = line.split(",")
-            arcPath = fileInfo[0]
-            offset = fileInfo[1]
-            for fileName in files:
-                offsetPos = fileName.find(offset)
-                if offsetPos != -1 and ((offsetPos + len(offset) <= len(fileName) or fileName[offsetPos + len(offset)] not in hexChars) and (offsetPos == 0 or fileName[offsetPos - 1] not in hexChars)):
-                    filePath = os.path.normpath(os.path.join(root, fileName))
-                    outPath = os.path.normpath(os.path.join(outputBase, arcPath))
-                    os.makedirs(os.path.dirname(outPath), 0o777, True)
-                    try:
-                        decomp(filePath, outPath)
-                    # if the file can't be decompressed, copy instead
-                    except zstd.ZstdError:
-                        copyfile(filePath, outPath)
-                    print("Output file to: \"" + os.path.abspath(outPath) + "\"")
-                    files.remove(fileName)
+try:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Offsets " + arcVersion + ".txt"), "r") as offsetsFile:
+        for root, dirs, files in os.walk(modDir, False):
+            offsetsFile.seek(0)
+            next(offsetsFile)  # skip metadata line
+            for line in offsetsFile:
+                fileInfo = line.split(",")
+                arcPath = fileInfo[0]
+                offset = fileInfo[1]
+                for fileName in files:
+                    offsetPos = fileName.find(offset)
+                    if offsetPos != -1 and ((offsetPos + len(offset) <= len(fileName) or fileName[offsetPos + len(offset)] not in hexChars) and (offsetPos == 0 or fileName[offsetPos - 1] not in hexChars)):
+                        filePath = os.path.normpath(os.path.join(root, fileName))
+                        outPath = os.path.normpath(os.path.join(outputBase, arcPath))
+                        os.makedirs(os.path.dirname(outPath), 0o777, True)
+                        try:
+                            decomp(filePath, outPath)
+                        # if the file can't be decompressed, copy instead
+                        except zstd.ZstdError:
+                            copyfile(filePath, outPath)
+                        print("Output file to: \"" + os.path.abspath(outPath) + "\"")
+                        files.remove(fileName)
+except FileNotFoundError:
+    print("There is no offsets file corresponding to version \"" + arcVersion + "\"")
 if len(sys.argv) < 2:
     input("press enter to exit")
