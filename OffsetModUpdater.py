@@ -2,9 +2,14 @@ import os, csv, sys
 from shutil import copyfile
 
 if sys.version_info[0] < 3:
-    print("This script must be run with python 3.")
-    if len(sys.argv) < 2:
-        raw_input("press enter to exit")
+    answer = raw_input("This script must be run with python 3.\nTry to automatically switch to python 3? (Y/N) ").lower()
+    if(answer == "y" or answer == "yes"):
+        if sys.platform.startswith('win32'):
+            if(os.system("py -3 OffsetModUpdater.py") != 0 and len(sys.argv) < 2):
+                raw_input("Press enter to exit")
+        else:
+            if(os.system('python3 OffsetModUpdater.py') != 0 and len(sys.argv) < 2):
+                raw_input("Press enter to exit")
     sys.exit()
 
 try:
@@ -13,8 +18,10 @@ except ImportError:
     answer = input("zstandard is required to run this script.\nTry to install it? (Y/N) ").lower()
     if(answer == "y" or answer == "yes"):
             # This is kinda gross, but it might help the illiterate
-            os.system('py -' + str(sys.version_info[0]) + ' -m pip install zstandard')
-            os.system('python' + str(sys.version_info[0]) + ' -m pip install zstandard')
+            if sys.platform.startswith('win32'):
+                os.system('py -' + str(sys.version_info[0]) + ' -m pip install zstandard')
+            else:
+                os.system('python' + str(sys.version_info[0]) + ' -m pip install zstandard')
             try:
                 import zstandard as zstd
             except ImportError:
