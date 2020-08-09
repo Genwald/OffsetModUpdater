@@ -64,7 +64,7 @@ try:
                 arcPath = fileInfo[0]
                 offset = fileInfo[1]
                 for fileName in files:
-                    offsetPos = fileName.find(offset)
+                    offsetPos = fileName.upper().find(offset)
                     if offsetPos != -1 and ((offsetPos + len(offset) <= len(fileName) or fileName[offsetPos + len(offset)] not in hexChars) and (offsetPos == 0 or fileName[offsetPos - 1] not in hexChars)):
                         filePath = os.path.normpath(os.path.join(root, fileName))
                         outPath = os.path.normpath(os.path.join(outputBase, arcPath))
